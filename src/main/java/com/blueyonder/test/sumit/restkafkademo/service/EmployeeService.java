@@ -4,9 +4,9 @@ import com.blueyonder.test.sumit.restkafkademo.model.Employee;
 
 public interface EmployeeService {
 
-    void create(Employee employee);
+    Employee create(Employee employee);
 
-    void update(Employee employee);
+    Employee update(Employee employee);
 
     void delete(String employeeId);
 

@@ -1,0 +1,51 @@
+version: '3.8'
+networks:
+  backend:
+    external: false
+    name: backend
+services:
+  mongodb_container:
+    networks:
+      - backend
+    image: mongo:latest
+    container_name: "mongo-db"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: blueyonder
+      MONGO_INITDB_ROOT_PASSWORD: blueyonder
+      MONGO_INITDB_DATABASE: employeeDB
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+      - './mongodb/scripts/ :/docker-entrypoint-initdb.d/'
+    command: mongod
+    healthcheck:
+      test: "exit 0"
+#  app-server:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    restart: always # This will be ignored if we deploy in docker swarm
+#    environment:
+#      - MONGO_DB_HOSTNAME=app_db
+#      - MONGO_DB_USERNAME=blueyonder
+#      - MONGO_DB_PASSWORD=blueyonder
+#      - MONGO_DB_NAME=employeeDB
+#    ports:
+#      - 9191:9191
+#    working_dir: /opt/app
+#    links:
+#      - mongodb_container:app_db
+#    depends_on:
+#      - mongodb_container
+#    networks:
+#      - backend
+#    healthcheck:
+#      test: "exit 0"
+
+
+volumes:
+  mongodb_data_container:

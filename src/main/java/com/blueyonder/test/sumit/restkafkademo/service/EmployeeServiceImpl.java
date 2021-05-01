@@ -10,21 +10,25 @@ import org.springframework.stereotype.Service;
 
 
 @Slf4j
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    @Autowired
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public void create(Employee employee) {
-        Employee save = employeeRepository.insert(employee);
-
+    public Employee create(Employee employee) {
+        return employeeRepository.insert(employee);
     }
 
     @Override
-    public void update(Employee employee) {
-        employeeRepository.save(employee);
+    public Employee update(Employee employee) {
+        if (employeeRepository.existsById(employee.getId())) {
+            return employeeRepository.save(employee);
+        }
+        log.error("employee doesn't exist with id {}", employee.getId());
+        throw new EntityNotFoundException("Entity not found with id :" + employee.getId());
     }
 
     @Override
