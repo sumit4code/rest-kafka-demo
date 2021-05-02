@@ -42,5 +42,18 @@ Following tasks needs to be performed
   
 ![Screenshot](./evidence/swagger-view.png)
 
+#### Unit And Integration Test cases
+
+![Screenshot](./evidence/test-cases.png)
+
+#### Code Coverage
+
+![Screenshot](./evidence/code-coverage.png)
+
+
+## Postman Collection Exported
+
+[link](file:./Blue Yonder.postman_collection.json)
+
 ### Reference Contact
 Reach out to me sumit4job@gmail.com

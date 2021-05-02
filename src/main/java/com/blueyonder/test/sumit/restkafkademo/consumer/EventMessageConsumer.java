@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +22,9 @@ public class EventMessageConsumer {
     private final OperationRecordRepository operationRecordRepository;
 
     @KafkaListener(id = "event-message-consumer", topics = "${kafka.message.consumer.topic}", groupId = "group_id")
-    public void consumeMessage(@Payload EventData eventData, MessageHeaders messageHeaders) {
+    public void consumeMessage(@Payload EventData eventData) {
         log.debug("Message received {}", eventData);
-        operationRecordRepository.save(
-                OperationRecord.builder().operationType(eventData.getOperationType())
-                        .payload(eventData.getPayload())
-                        .build()
-        );
+        operationRecordRepository.save(OperationRecord.builder().operationType(eventData.getOperationType()).payload(eventData.getPayload()).build());
         log.info("Message persisted successfully");
-
     }
 }

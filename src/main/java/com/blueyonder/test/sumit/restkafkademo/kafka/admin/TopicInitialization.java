@@ -20,6 +20,9 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Creates required topic based on configuration provided in {@link TopicConfiguration} during start up
+ */
 @Configuration
 @EnableConfigurationProperties(TopicConfiguration.class)
 @ConditionalOnProperty(value = "kafka.topic.creation.enabled", havingValue = "true", matchIfMissing = false)

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Future;
 
-
 @Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -32,7 +31,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
         this.eventPublisher = eventPublisher;
     }
-
 
     @Override
     public Employee create(Employee employee) {
