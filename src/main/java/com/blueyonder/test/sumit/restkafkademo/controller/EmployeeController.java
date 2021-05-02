@@ -2,6 +2,8 @@ package com.blueyonder.test.sumit.restkafkademo.controller;
 
 import com.blueyonder.test.sumit.restkafkademo.model.Employee;
 import com.blueyonder.test.sumit.restkafkademo.service.EmployeeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,13 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/v1/employee")
 @Validated
+@Api(value = "CRUD operation on Employee", tags = {"employeeOperation"})
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
     @PostMapping
+    @ApiOperation(value = "Validate and store employee record")
     public ResponseEntity<Employee> create(@Valid @RequestBody Employee employee) {
         log.debug("Received request for creating employee {}", employee);
         Employee saved = employeeService.create(employee);
@@ -35,6 +39,7 @@ public class EmployeeController {
     }
 
     @PutMapping
+    @ApiOperation(value = "Validate and update employee record")
     public ResponseEntity<Employee> update(@Valid @RequestBody Employee employee) {
         log.debug("Received request for updating employee {}", employee);
         Employee saved = employeeService.update(employee);
@@ -42,6 +47,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/{id}")
+    @ApiOperation(value = "Retrieve employee record")
     public ResponseEntity<Employee> get(@PathVariable(value = "id") String id) {
         log.debug("Received request for getting employee employee {}", id);
         Employee employee = employeeService.get(id);
@@ -49,6 +55,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value = "Delete employee record")
     public ResponseEntity<?> delete(@PathVariable(value = "id") String id) {
         log.debug("Received request for deleting employee {}", id);
         employeeService.delete(id);

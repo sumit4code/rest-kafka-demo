@@ -17,4 +17,5 @@ public class MongoValidation {
     public LocalValidatorFactoryBean validator() {
         return new LocalValidatorFactoryBean();
     }
+
 }
